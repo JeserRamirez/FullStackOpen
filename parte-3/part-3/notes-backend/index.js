@@ -2,6 +2,7 @@
 require("dotenv").config();
 
 const express = require("express");
+import requestIp from "request-ip";
 const Note = require("./models/note.js");
 const cors = require("cors");
 
@@ -34,6 +35,11 @@ app.use(cors());
 
 app.get("/", (request, response) => {
   response.send("<h1>Hello World!</h1>");
+});
+
+app.get("/my-ip", (req, res) => {
+  const ip = requestIp.getClientIp(req);
+  res.send(`Tu IP es: ${ip}`);
 });
 
 app.get("/api/notes/:id", (request, response, next) => {

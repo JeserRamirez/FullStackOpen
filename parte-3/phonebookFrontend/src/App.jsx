@@ -11,7 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNumber] = useState('')
   const [errorMessage, setErrorMessage] = useState('some error happened...')
-  const [statusCode, setStatusCode] = useState('')
+  const [statusCode, setStatusCode] = useState(null)
 
   const hook = () => {
     personService
@@ -51,6 +51,7 @@ const App = () => {
             )
             setTimeout(() => {
               setErrorMessage(null)
+              setStatusCode(null) 
             }, 5000)
           }). catch(error => {
             setErrorMessage(
@@ -59,6 +60,7 @@ const App = () => {
             setStatusCode(error.status)
             setTimeout(() => {
               setErrorMessage(null)
+              setStatusCode(null)
             }, 5000)
             setPersons(persons.filter(p => p.id !== findPerson.id))
           })
@@ -80,12 +82,14 @@ const App = () => {
         )
         setTimeout(() => {
           setErrorMessage(null)
+          setStatusCode(null)
         }, 5000)
       }).catch(error => {
           setErrorMessage(error.response.data.error)
           setStatusCode(error.status)
             setTimeout(() => {
               setErrorMessage(null)
+              setStatusCode(null)
             }, 5000)
         }
       )

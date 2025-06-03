@@ -2,7 +2,7 @@
 require("dotenv").config();
 
 const express = require("express");
-import requestIp from "request-ip";
+const requestIp = require("request-ip");
 const Note = require("./models/note.js");
 const cors = require("cors");
 

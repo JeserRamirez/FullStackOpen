@@ -26,14 +26,25 @@ const requestLogger = (request, response, next) => {
 };
 
 const errorHandler = (error, request, response, next) => {
-  console.error(error.message);
+  if (error.name === "NotFound") {
+    return response.status(404).json({
+      error: error.message,
+      statusCode: 404,
+    });
+  }
 
   if (error.name === "CastError") {
-    return response.status(400).send({ error: "malformatted id" });
+    return response.status(400).json({
+      error: "malformatted id",
+      statusCode: 400,
+    });
   }
 
   if (error.name === "ValidationError") {
-    return response.status(400).json({ error: error.message });
+    return response.status(400).json({
+      error: error.message,
+      statusCode: 400,
+    });
   }
 
   next(error);
@@ -66,51 +77,41 @@ app.get("/info", (request, response) => {
   });
 });
 
-app.post("/api/persons", (request, response) => {
+app.post("/api/persons", (request, response, next) => {
   const body = request.body;
-
-  if (!body.name) {
-    return response.status(400).json({
-      error: {
-        message: "name field is missing",
-        statusCode: 400,
-      },
-    });
-  }
-
-  if (!body.number) {
-    return response.status(400).json({
-      error: {
-        message: "number field is missing",
-        statusCode: 400,
-      },
-    });
-  }
 
   const person = new Person({
     name: body.name,
     number: body.number,
   });
 
-  person.save().then((person) => {
-    response.json(person);
-  });
+  person
+    .save()
+    .then((person) => {
+      response.json(person);
+    })
+    .catch((error) => next(error));
 });
 
 app.put("/api/persons/:id", (request, response, next) => {
   const { name, number } = request.body;
 
-  const updatedPerson = {
-    name,
-    number,
-  };
-
-  Person.findByIdAndUpdate(request.params.id, updatedPerson, {
-    new: true,
-    runValidators: true,
-    context: "query",
-  })
+  Person.findByIdAndUpdate(
+    request.params.id,
+    { name, number },
+    {
+      new: true,
+      runValidators: true,
+      context: "query",
+    }
+  )
     .then((result) => {
+      if (!result) {
+        const error = new Error("Person not found");
+        error.name = "NotFound";
+        throw error;
+      }
+
       response.json(result);
     })
     .catch((error) => next(error));

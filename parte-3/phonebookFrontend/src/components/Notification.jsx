@@ -3,9 +3,11 @@ const Notification = ({ message, statusCode }) => {
     if (message === null) {
         return null
     }
+    
+    const isError = [400, 404].includes(Number(statusCode));
 
     return (
-        <div className={Number(statusCode) === 404 ? 'error' : 'success'}>
+        <div className={`${isError ? 'error' : 'success'}`}>
             {message}
         </div>
     )

@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Implc2VyIiwiaWQiOiI2ODUxYzkwZGNlNDBiYjdjMTdlNTRjOTEiLCJpYXQiOjE3NTAyODIzMTcsImV4cCI6MTc1MDI4NTkxN30.LwXd_cTZ6_nChbgrNA18cNurRVWEuoQ2gOVpn3e1tiU
+
+{
+    "title": "Machine Learning",
+    "author": "microsoft",
+    "url": "https://azure.com",
+    "likes": 25000
+}

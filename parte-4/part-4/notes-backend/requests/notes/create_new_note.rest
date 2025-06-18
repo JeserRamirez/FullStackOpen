@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI2ODUwOTlhZDgzNTdlZDY5OTY1MmEyNDMiLCJpYXQiOjE3NTAxMzQ4NDZ9.lyt9M1yHmruaZiBWlMu20ePmx_9uQS5ViwVw8NP5Zt0
+
+{
+    "content": "JWT has a payload",
+    "important": true,
+    "userId": "685099568357ed699652a240"
+}

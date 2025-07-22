@@ -1,6 +1,6 @@
-import { useDispatch } from "react-redux"
-import { createAnecdote } from "../reducers/anecdoteReducer"
-import { setNotification } from "../reducers/notificationReducer"
+import { useDispatch } from 'react-redux'
+import { createAnecdote } from '../reducers/anecdoteReducer'
+import { setNotification } from '../reducers/notificationReducer'
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch()
@@ -18,7 +18,9 @@ const AnecdoteForm = () => {
     <>
       <h2>create new</h2>
       <form onSubmit={addAnecdote}>
-        <div><input name="anecdote" /></div>
+        <div>
+          <input name="anecdote" />
+        </div>
         <button>create</button>
       </form>
     </>
